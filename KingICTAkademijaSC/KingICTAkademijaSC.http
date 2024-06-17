@@ -1,0 +1,6 @@
+@KingICTAkademijaSC_HostAddress = http://localhost:5109
+
+GET {{KingICTAkademijaSC_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
