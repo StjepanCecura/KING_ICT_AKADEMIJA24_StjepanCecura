@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using KingICTAkademijaSC.Models;
+using KingICTAkademijaSC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddHttpClient<AuthService>();
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddDbContext<KorisniciContext>(opt =>
@@ -28,6 +30,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
