@@ -64,7 +64,7 @@ namespace KingICTAkademijaSC.Controllers
         [HttpGet("filter")]
         public async Task<IActionResult> Get(string category, double value, bool higher)
         {
-            var url = "https://dummyjson.com/products";
+            var url = "https://dummyjson.com/products/category/" + category;
             var response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -73,8 +73,7 @@ namespace KingICTAkademijaSC.Controllers
                 var root = JsonConvert.DeserializeObject<Root>(JSONData);
 
                 root.Proizvodi = root.Proizvodi
-                    .Where(p => p.Category.Equals(category, StringComparison.OrdinalIgnoreCase) &&
-                                (higher ? p.Price > value : p.Price < value))
+                    .Where(p => higher ? p.Price > value : p.Price < value)
                     .ToList();
 
                 string filteredJsonData = JsonConvert.SerializeObject(root, Formatting.Indented);
